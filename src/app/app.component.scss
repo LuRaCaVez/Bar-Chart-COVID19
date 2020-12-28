@@ -1,0 +1,21 @@
+div#head{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    height: 30px;
+
+    span{
+        font-size: 30px;
+    }
+
+    button{
+        padding: 5px;
+        border-radius: 15%;
+    }
+
+    span#source {
+        font-size: 0.8rem;
+        margin-left: 20%;
+    }
+}
