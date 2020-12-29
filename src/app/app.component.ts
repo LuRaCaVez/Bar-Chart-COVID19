@@ -20,7 +20,7 @@ export class AppComponent {
   barSize = 38;
   names;
   datevalues;
-  keyframes;
+  keyframes: Array<any>;
   nameframes;
   color;
   height;
@@ -54,17 +54,17 @@ export class AppComponent {
   renderGraph(){
     axios.get(this.dataUrl).then((response) => {
 
-      let data = this.cleanData(response);
+      let data: Array<any> = this.cleanData(response);
         
       this.names = new Set(data.map(d => d.name));
   
       this.datevalues = Array.from(rollup(data, ([d]) => +d.value || 0.001, d => d.date, d => d.name))
                         .map(([date, data]) => [new Date(date), data])
-                        .sort(([a], [b]) => ascending(a, b));
+                        .sort(([a], [b]) => ascending(a[0], b[0]));
 
       this.keyframes = [];
       let ka, a, kb, b;
-      for ([[ka, a], [kb, b]] of pairs(this.datevalues)) {
+      for ([[ka, a], [kb, b]] of pairs<Array<any>>(this.datevalues)) {
         for (let i = 0; i < this.k; ++i) {
           const t = i / this.k;
           this.keyframes.push([
@@ -95,7 +95,7 @@ export class AppComponent {
       this.x = scaleLinear([0, 1], [this.margin.left, this.width - this.margin.right]);
  
       this.y = scaleBand()
-              .domain(range(this.n + 1))
+              .domain(range(this.n + 1).map(m=>m.toString()))
               .rangeRound([this.margin.top, this.margin.top + this.barSize * (this.n + 1 + 0.1)])
               .padding(0.1)
 
@@ -107,7 +107,7 @@ export class AppComponent {
   }
 
   async chart (){
-    const svg = select("div#chart").append("svg").attr("viewBox", [0, 0, this.width, this.height]);
+    const svg = select("div#chart").append("svg").attr("viewBox", `0 0 ${this.width} ${this.height}`);
   
     const updateBars = this.bars(svg);
     const updateAxis = this.axis(svg);
