@@ -1,5 +1,9 @@
 # DemoBarChartRace
 
+Visit the page here: https://luracavez.github.io/Bar-Chart-COVID19/
+
+##
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.7.
 
 ## Development server
