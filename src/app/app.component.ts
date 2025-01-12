@@ -53,13 +53,13 @@ export class AppComponent {
 
   renderGraph(){
     select("svg").remove();
-    axios.get(this.dataUrl).then((response) => {
+    axios.get(this.dataUrl).then(async (response: any) => {
 
       let data = this.cleanData(response);
         
       this.names = new Set(data.map((d: any) => d.name));
   
-      this.datevalues = Array.from(rollup(data, (d: any) => +d.value || 0.001, (d: any) => d.date, (d: any) => d.name))
+      this.datevalues = Array.from(rollup(data, ([d]: any) => +d.value || 0.001, (d: any) => d.date, (d: any) => d.name))
                         .map(([date, data]) => [new Date(date), data])
                         .sort((a: any, b: any) => ascending(a[0], b[0]));
 
@@ -88,7 +88,7 @@ export class AppComponent {
         scale.domain(Array.from(categoryByName.values()));
         this.color = (d: any) => scale(categoryByName.get(d.name) ?? '');
       } else {
-        this.color =  (d: any) => scale(d.name);
+        this.color = (d: any) => scale(d.name);
       }
 
       this.height = this.margin.top + this.barSize * this.n + this.margin.bottom;
@@ -100,9 +100,9 @@ export class AppComponent {
               .rangeRound([this.margin.top, this.margin.top + this.barSize * (this.n + 1 + 0.1)])
               .padding(0.1)
 
-      this.chart();
+      await this.chart();
   
-    }).catch((err) => {
+    }).catch((err: any) => {
       console.log(err);
     });
   }
