@@ -1,10 +1,12 @@
 <div id="head">
-    <span>Casi COVID-19</span>
+  <span>Casi COVID-19</span>
+  <div>
     <button (click)="startRegione()" >Regioni</button>
     <button (click)="startProvincia()" >Province</button>
-    <span id="source">Sorgente dati: <a href="https://github.com/pcm-dpc/COVID-19">https://github.com/pcm-dpc/COVID-19</a></span>
+  </div>
+  <span id="source">Sorgente dati: <a href="https://github.com/pcm-dpc/COVID-19">https://github.com/pcm-dpc/COVID-19</a></span>
 </div>
 
 <div id="chart"></div>
 
-<router-outlet></router-outlet>
+<router-outlet />
