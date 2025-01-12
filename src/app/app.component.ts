@@ -133,9 +133,9 @@ export class AppComponent {
   }
 
   rank(value: any) {
-    const data = Array.from(this.names, name => ({name, value: value(name), rank: 0}));
+    const data = Array.from(this.names, name => ({name, value: value(name), rank: '0'}));
     data.sort((a, b) => descending(a.value, b.value));
-    for (let i = 0; i < data.length; ++i) data[i].rank = Math.min(this.n, i);
+    for (let i = 0; i < data.length; ++i) data[i].rank = Math.min(this.n, i).toString();
     return data;
   }
 
@@ -196,8 +196,8 @@ export class AppComponent {
 
   textTween(a: any, b: any) {
     const i = interpolateNumber(a, b);
-    return (t: any) => {
-      (this as any).textContent = format(",d")(i(t));
+    return function(this: any, t: any) {
+      this.textContent = format(",d")(i(t));
     };
   }
 
