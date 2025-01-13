@@ -10,17 +10,31 @@ div#head {
     }
 }
 
-div#buttons {
+div#settings {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    button {
-        padding: 5px;
-        margin: 5px;
-        border-radius: 15%;
+    div#buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        width: 50%;
+
+        button {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 15%;
+        }
+    }
+
+    div#sliders {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        width: 50%;
     }
 }
-
-

@@ -20,26 +20,30 @@ export class AppComponent {
   velocity = 1;
   n = 17;
   k = 2;
-  margin = {top: 30, right: 6, bottom: 3, left: 100};
-  barSize = 38;
+  margin = {top: 30, right: 6, bottom: 3, left: 50};
   names = new Set();
   datevalues = new Array<any>;
   keyframes = new Array<any>;
   nameframes = new Array<any>;
   color: any;
-  height = 0;
-  width = window.screen.width;
+  barSize: number = 0;
+  height: number = 0;
+  width: number = 0;
   x: any;
   y: any;
   prev: any;
   next: any;
 
   startProvincia(){
+    this.duration = 110;
+    this.velocity = 1;
     this.dataUrl = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province.json";
     this.renderGraph();
   }
 
   startRegione(){
+    this.duration = 110;
+    this.velocity = 1;
     this.dataUrl = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni.json";
     this.renderGraph();
   }
@@ -55,6 +59,9 @@ export class AppComponent {
 
   renderGraph(){
     select("svg").remove();
+    this.barSize = Math.round((window.screen.height - 200 - this.margin.top - this.margin.bottom - (document.getElementById("chart")?.offsetTop ?? 0)) / this.n);
+    this.height = this.margin.top + this.barSize * this.n + this.margin.bottom;
+    this.width = window.screen.width;
     axios.get(this.dataUrl).then(async (response: any) => {
 
       let data = this.cleanData(response);
@@ -93,8 +100,6 @@ export class AppComponent {
         this.color = (d: any) => scale(d.name);
       }
 
-      this.height = this.margin.top + this.barSize * this.n + this.margin.bottom;
-
       this.x = scaleLinear([0, 1], [this.margin.left, this.width - this.margin.right]);
  
       this.y = scaleBand()
@@ -102,8 +107,6 @@ export class AppComponent {
               .rangeRound([this.margin.top, this.margin.top + this.barSize * (this.n + 1 + 0.1)])
               .padding(0.1)
 
-      window.scrollTo(0, document.body.scrollHeight);
-      
       await this.chart();
   
     }).catch((err: any) => {

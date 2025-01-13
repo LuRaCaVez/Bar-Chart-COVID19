@@ -3,15 +3,23 @@
   <p id="source">Sorgente dati: <a href="https://github.com/pcm-dpc/COVID-19">https://github.com/pcm-dpc/COVID-19</a></p>
 </div>
 
-<div id="buttons">
-  <span>Seleziona la visualizzazione:</span>
-  <button (click)="startRegione()" >Regioni</button>
-  <span>o</span>
-  <button (click)="startProvincia()" >Province</button>
-  <span>Velocity: </span>
-  <input type="number" id="velocity" [(ngModel)]="velocity" max="10" min="1"/>
-  <span>Duration: </span>
-  <input type="number" id="duration" [(ngModel)]="duration" max="250" min="1"/>
+<div id="settings">
+  <div id="buttons">
+    <span>Seleziona la visualizzazione:</span>
+    <button (click)="startRegione()" >Regioni</button>
+    <span>o</span>
+    <button (click)="startProvincia()" >Province</button>
+  </div>
+  <div id="sliders">
+    <div>
+      <span>Velocity: </span>
+      <input type="number" id="velocity" [(ngModel)]="velocity" max="10" min="1"/>
+    </div>
+    <div>
+      <span>Duration: </span>
+      <input type="number" id="duration" [(ngModel)]="duration" max="250" min="1"/>
+    </div>
+  </div>
 </div>
 
 <div id="chart">
