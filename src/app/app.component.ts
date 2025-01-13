@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { interpolateNumber, format, axisTop, easeLinear, utcFormat, select } from 'd3';
 import { rollup, ascending, descending, pairs, groups, range } from 'd3-array';
 import { schemeTableau10 } from 'd3-scale-chromatic';
@@ -8,7 +9,7 @@ import axios from 'axios';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, FormsModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -16,6 +17,7 @@ export class AppComponent {
   title = 'Bar-Chart-COVID19';
   dataUrl = '';
   duration = 110;
+  velocity = 1;
   n = 17;
   k = 2;
   margin = {top: 30, right: 6, bottom: 3, left: 100};
@@ -100,6 +102,8 @@ export class AppComponent {
               .rangeRound([this.margin.top, this.margin.top + this.barSize * (this.n + 1 + 0.1)])
               .padding(0.1)
 
+      window.scrollTo(0, document.body.scrollHeight);
+      
       await this.chart();
   
     }).catch((err: any) => {
@@ -115,9 +119,14 @@ export class AppComponent {
     const updateLabels = this.labels(svg);
     const updateTicker = this.ticker(svg);
 
+    let kcount = 0;
     for (const keyframe of this.keyframes) {
+      kcount++;
+      if (kcount % Math.max(1, this.velocity) != 0){
+        continue;
+      }
       const transition = svg.transition()
-          .duration(this.duration)
+          .duration(Math.max(1, Math.min(this.duration, 250)))
           .ease(easeLinear);
 
       // Extract the top bar’s value.

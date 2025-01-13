@@ -1,12 +1,20 @@
 <div id="head">
   <span>Casi COVID-19</span>
-  <div>
-    <button (click)="startRegione()" >Regioni</button>
-    <button (click)="startProvincia()" >Province</button>
-  </div>
-  <span id="source">Sorgente dati: <a href="https://github.com/pcm-dpc/COVID-19">https://github.com/pcm-dpc/COVID-19</a></span>
+  <p id="source">Sorgente dati: <a href="https://github.com/pcm-dpc/COVID-19">https://github.com/pcm-dpc/COVID-19</a></p>
 </div>
 
-<div id="chart"></div>
+<div id="buttons">
+  <span>Seleziona la visualizzazione:</span>
+  <button (click)="startRegione()" >Regioni</button>
+  <span>o</span>
+  <button (click)="startProvincia()" >Province</button>
+  <span>Velocity: </span>
+  <input type="number" id="velocity" [(ngModel)]="velocity" max="10" min="1"/>
+  <span>Duration: </span>
+  <input type="number" id="duration" [(ngModel)]="duration" max="250" min="1"/>
+</div>
+
+<div id="chart">
+</div>
 
 <router-outlet />

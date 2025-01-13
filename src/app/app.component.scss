@@ -1,27 +1,26 @@
 div#head {
-    display: flex;
-    flex-direction: row;
     width: 100%;
-    justify-content: space-around;
-    height: 30px;
+    text-align: center;
 
     span {
         font-size: 30px;
     }
+    p#source {
+        font-size: 0.8rem;
+    }
+}
+
+div#buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     button {
         padding: 5px;
         margin: 5px;
         border-radius: 15%;
     }
-
-    span#source {
-        font-size: 0.8rem;
-        position: absolute;
-        bottom: 5px
-    }
 }
 
-div#chart {
-    margin-top: 15px;
-}
+
